@@ -23,6 +23,41 @@ public:
         BigReal s3;
         string s0;
         int ch=0;
+        int i1 =integer.find(".");
+        int i2=c2.integer.find(".");
+        if(i1>0&&i2<0)
+        {
+            int no_after=integer.size()-(i1+1);
+            c2.integer=c2.integer+".";
+            for(int i=0;i<no_after;i++)
+            {
+                c2.integer=c2.integer+"0";
+            }
+        }
+        else if(i1<0&&i2>0)
+        {
+            int no_after=c2.integer.size()-(i2+1);
+            integer=integer+".";
+            for(int i=0;i<no_after;i++)
+            {
+                integer=integer+"0";
+            }
+        }
+        else if(i1>0&&i2>0)
+        {
+            int no_after=c2.integer.size()-(i2+1);
+            int no_after1=integer.size()-(i2+1);
+            if(no_after>no_after1)
+                for(int i=0;i<no_after-no_after1;i++)
+                {
+                    integer=integer+"0";
+                }
+            else
+                for(int i=0;i<no_after1-no_after;i++)
+                {
+                    c2.integer=c2.integer+"0";
+                }
+        }
         if(integer[0]=='-'&&c2.integer[0]=='-')
         {
             integer.erase(0,1);
@@ -50,7 +85,10 @@ public:
         int x,carry=0,n;
         for(int i=integer.size()-1;i>=0;--i)
         {
-
+            if(integer[i]=='.') {
+                --i;
+                s3.integer += ".";
+            }
             if(i!=0) {
                 if(carry==1) {
                     x = ((integer[i] - '0') + (c2.integer[i] - '0')+1);
