@@ -335,8 +335,56 @@ public:
             s3.integer+="-";
         reverse(s3.integer.begin(),s3.integer.end());
         return s3.integer;
-
-
+    }
+    bool operator==(const BigReal& c2) {
+        int x,y;
+        int len1=integer.size();
+        int len2=c2.integer.size();
+        if (integer[0]=='-'&&c2.integer[0]!='-'){return false;}
+        if (c2.integer[0]=='-'&&integer[0]!='-')return true;
+        int count=0;
+        if(len1>len2)
+        {
+            return true;
+        }
+        else if (len1==len2)
+        {
+            for(int i =0;i<integer.size();i++)
+            {
+                if (integer[i]>c2.integer[i])
+                {
+                    return false;
+                    break;
+                }
+                else if (integer[i]<c2.integer[i])
+                {
+                    return false;
+                    break;
+                }
+                else
+                    count++;
+            }
+            if(count==integer.size())
+            {count=0;
+                for (int i =0;i<fraction.size();i++)
+                { if (fraction[i]>c2.fraction[i])
+                    {
+                        return false;
+                        break;
+                    }
+                    else if (fraction[i]<c2.fraction[i])
+                    {
+                        return false;
+                        break;
+                    }
+                    else
+                        count++;
+                }
+                if(count==fraction.size())
+                    return true;
+            }
+        }
+        return false;
     }
 };
 
@@ -346,7 +394,7 @@ BigReal::BigReal()
 }
 BigReal :: BigReal(string real) {
     valid = true;//to check if the number is valid or not
-    if (regex_match(real, regex("[+-]?\\[0-9]*.?\\[0-9]+"))) //using regular expression i have to check tht the first index have +or-or neither after that digits after that have at most dot after that digits
+    if (regex_match(real, regex("[+-]?\\d*.?\\d+"))) //using regular expression i have to check tht the first index have +or-or neither after that digits after that have at most dot after that digits
         {
         if (real[0] == '-') {
             sign = '-';//here to split the real
