@@ -123,25 +123,46 @@ public:
         }
         return false;
     }
+    //operator that add two number
     BigReal operator+(BigReal c2) {
         BigReal s3;
         string s0;
-        int ch = 0;
-        int i1 = greal.find(".");
+        int ch = 0; //boolean that check if two number is negative
+        // if one number is negtaive and other is postive the operation will be - so call operate -
+        if(integer[0]!='-'&&c2.integer[0]=='-')
+        {
+            c2.integer.erase(0,1);
+            s3=operator-(c2);
+            return s3;
+        }
+            // if one number is negtaive and other is postive the operation will be - so call operate -
+        else if(integer[0]=='-'&&c2.integer[0]!='-')
+        {
+            integer.erase(0,1);
+            c2.integer.swap(integer);
+            s3=operator-(c2);
+            return s3;
+        }
+        int i1 = greal.find("."); //find where is dot in no.
         int i2 = c2.greal.find(".");
+        // make size of integer after dot equal size of integer after dot in another number
         if (i1 > 0 && i2 < 0) {
             int no_after = greal.size() - (i1 + 1);
             c2.greal = c2.greal + ".";
             for (int i = 0; i < no_after; i++) {
                 c2.greal = c2.greal + "0";
             }
-        } else if (i1 < 0 && i2 > 0) {
+        }
+            // make size of integer after dot equal size of integer after dot in another number
+        else if (i1 < 0 && i2 > 0) {
             int no_after = c2.greal.size() - (i2 + 1);
             greal = greal + ".";
             for (int i = 0; i < no_after; i++) {
                 greal = greal + "0";
             }
-        } else if (i1 > 0 && i2 > 0) {
+        }
+            // make size of integer after dot equal size of integer after dot in another number
+        else if (i1 > 0 && i2 > 0) {
             int no_after = c2.greal.size() - (i2 + 1);
             int no_after1 = greal.size() - (i2 + 1);
             if (no_after > no_after1)
@@ -153,19 +174,22 @@ public:
                     c2.greal = c2.greal + "0";
                 }
         }
+        //if two number is negative erase the negative sign bec add two negative number = add two pos num and at the end add negative
         if (greal[0] == '-' && c2.greal[0] == '-') {
             greal.erase(0, 1);
             c2.greal.erase(0, 1);
             ch = 1;
         }
-
+        // make size of integer before dot equal size of integer before dot in another number
         if (c2.greal.size() > greal.size()) {
             int size = c2.greal.size() - greal.size();
             string zero;
             for (int i = 0; i < size; i++)
                 zero = zero + "0";
             greal = zero + greal;
-        } else if (c2.greal.size() < greal.size()) {
+        }
+            // make size of integer before dot equal size of integer before dot in another number
+        else if (c2.greal.size() < greal.size()) {
             int size = greal.size() - c2.greal.size();
             string zero;
             for (int i = 0; i < size; i++)
@@ -174,6 +198,7 @@ public:
 
         }
         int x, carry = 0, n;
+        //add operation
         for (int i = greal.size() - 1; i >= 0; --i) {
             if (greal[i] == '.') {
                 --i;
@@ -195,7 +220,6 @@ public:
                     carry = 1;
                 }
             } else if (i == 0 && greal[i] != '-' && c2.greal[i] != '-') {
-//                if(carry==1)
                 x = ((greal[i] - '0') + (c2.greal[i] - '0'));
                 if (carry == 1) {
                     x = x + 1;
@@ -213,24 +237,27 @@ public:
         return s3.greal;
 //
     }
+    //operator that subtract two number
     BigReal operator-(BigReal c2) {
         BigReal s3;
-        string s0;
-        int ch=0;
+        int ch=0;//if true the first number is the smaller
+        //if one number is negtaive and other is postive the operation will be + so call operate +
         if(integer[0]!='-'&&c2.integer[0]=='-')
         {
             c2.integer.erase(0,1);
             s3=operator+(c2);
             return s3;
         }
+            //if one number is negtaive and other is postive the operation will be + so call operate +
         else if(integer[0]=='-'&&c2.integer[0]!='-')
         {
             c2.integer='-'+c2.integer;
             s3=operator+(c2);
             return s3;
         }
-        int i1 =integer.find(".");
+        int i1 =integer.find(".");//find where is dot in no.
         int i2=c2.integer.find(".");
+        // make size of integer after dot equal size of integer after dot in another number
         if(i1>0&&i2<0)
         {
             int no_after=integer.size()-(i1+1);
@@ -240,6 +267,7 @@ public:
                 c2.integer=c2.integer+"0";
             }
         }
+            // make size of integer after dot equal size of integer after dot in another number
         else if(i1<0&&i2>0)
         {
             int no_after=c2.integer.size()-(i2+1);
@@ -249,6 +277,7 @@ public:
                 integer=integer+"0";
             }
         }
+            // make size of integer after dot equal size of integer after dot in another number
         else if(i1>0&&i2>0)
         {
             int no_after=c2.integer.size()-(i2+1);
@@ -264,14 +293,14 @@ public:
                     c2.integer=c2.integer+"0";
                 }
         }
+        // if two number is negative we need to swap bec -2--4 is equal 4-2 and we need to erase -sign
         if(integer[0]=='-'&&c2.integer[0]=='-')
         {
-            string swap;
             integer.erase(0,1);
             c2.integer.erase(0,1);
             c2.integer.swap(integer);
         }
-//
+        // make size of integer before dot equal size of integer before dot in another number
         if(c2.integer.size()>integer.size())
         {
             int size =c2.integer.size()-integer.size();
@@ -280,6 +309,7 @@ public:
                 zero=zero+"0";
             integer=zero+integer;
         }
+            // make size of integer before dot equal size of integer before dot in another number
         else if(c2.integer.size()<integer.size())
         {
             int size =integer.size()-c2.integer.size();
@@ -289,6 +319,7 @@ public:
             c2.integer=zero+c2.integer;
 
         }
+        //check which number is smallest
         for(int i=0;i<integer.size();i++)
         {
             if(integer[i]=='.')
@@ -300,6 +331,7 @@ public:
             }
         }
         int x,borrow=0,n;
+        //subtract function
         for(int i=integer.size()-1;i>=0;--i) {
             if (integer[i] == '.') {
                 --i;
