@@ -340,12 +340,12 @@ public:
         int x,y;
         int len1=integer.size();
         int len2=c2.integer.size();
-        if (integer[0]=='-'&&c2.integer[0]!='-'){return false;}
-        if (c2.integer[0]=='-'&&integer[0]!='-')return true;
+        if (integer[0]=='-'&&c2.integer[0]!='-'){return false;}//if the signs is different the numbers is different
+        if (c2.integer[0]=='-'&&integer[0]!='-')return false;
         int count=0;
         if(len1>len2)
         {
-            return true;
+            return false;
         }
         else if (len1==len2)
         {
