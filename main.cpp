@@ -28,10 +28,10 @@ int main()
     }
     else if(choice==">")
     {
-       if(op.sign==op1.sign&&op.sign=='-')
-           cout<<((op > op1)? "No" : "Yes");
-       else
-        cout<<((op > op1)? "Yes" : "No");
+        if(op.sign==op1.sign&&op.sign=='-')
+            cout<<((op < op1)? "Yes" : "No");
+        else
+            cout<<((op < op1)? "No" : "Yes");
     }
     else if(choice=="<")
     {
@@ -48,6 +48,9 @@ int main()
     }
     else if(choice=="==")
     {
-        cout<<((op == op1)? "Yes" : "No");
+        if (!(op < op1)&&!( op1<op))
+            cout<<"Yes";
+        else
+            cout<<"No";
     }
 }

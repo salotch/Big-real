@@ -73,56 +73,6 @@ public:
         }
         return false;
     }
-    bool operator>(const BigReal& c2) {
-        int x,y;
-        int len1=integer.size();
-        int len2=c2.integer.size();
-        if (integer[0]=='-'&&c2.integer[0]!='-'){return false;}
-        if (c2.integer[0]=='-'&&integer[0]!='-')return true;
-        int count=0;
-        if(len1>len2)
-        {
-            return true;
-        }
-        else if (len1==len2)
-        {
-            for(int i =0;i<integer.size();i++)
-            {
-                if (integer[i]>c2.integer[i])
-                {
-                    return true;
-                    break;
-                }
-                else if (integer[i]<c2.integer[i])
-                {
-                    return false;
-                    break;
-                }
-                else
-                    count++;
-            }
-            if(count==integer.size())
-            {count=0;
-                for (int i =0;i<fraction.size();i++)
-                { if (fraction[i]>c2.fraction[i])
-                    {
-                        return true;
-                        break;
-                    }
-                    else if (fraction[i]<c2.fraction[i])
-                    {
-                        return false;
-                        break;
-                    }
-                    else
-                        count++;
-                }
-                if(count==fraction.size())
-                    return false;
-            }
-        }
-        return false;
-    }
     //operator that add two number
     BigReal operator+(BigReal c2) {
         BigReal s3;
@@ -368,56 +318,7 @@ public:
         reverse(s3.integer.begin(),s3.integer.end());
         return s3.integer;
     }
-    bool operator==(const BigReal& c2) {
-        int x,y;
-        int len1=integer.size();
-        int len2=c2.integer.size();
-        if (integer[0]=='-'&&c2.integer[0]!='-'){return false;}//if the signs is different the numbers is different
-        if (c2.integer[0]=='-'&&integer[0]!='-')return false;
-        int count=0;
-        if(len1>len2)
-        {
-            return false;
-        }
-        else if (len1==len2)
-        {
-            for(int i =0;i<integer.size();i++)
-            {
-                if (integer[i]>c2.integer[i])
-                {
-                    return false;
-                    break;
-                }
-                else if (integer[i]<c2.integer[i])
-                {
-                    return false;
-                    break;
-                }
-                else
-                    count++;
-            }
-            if(count==integer.size())
-            {count=0;
-                for (int i =0;i<fraction.size();i++)
-                { if (fraction[i]>c2.fraction[i])
-                    {
-                        return false;
-                        break;
-                    }
-                    else if (fraction[i]<c2.fraction[i])
-                    {
-                        return false;
-                        break;
-                    }
-                    else
-                        count++;
-                }
-                if(count==fraction.size())
-                    return true;
-            }
-        }
-        return false;
-    }
+
 };
 
 BigReal::BigReal()
